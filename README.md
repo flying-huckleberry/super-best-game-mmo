@@ -29,4 +29,4 @@ npm start
 ```
 
 
-Season's don't fear the reaper. Nor do the wind, the sun and the rain.
+Seasons don't fear the reaper. Nor do the wind, the sun and the rain.
