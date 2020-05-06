@@ -290,7 +290,7 @@ $(function() {
   //   setHeight: '200px',
   // });
   $('.scrollbar-macosx').scrollbar();
-  $("#myonoffswitch").onoff();
+  // $("#myonoffswitch").onoff();
 
   $(document.body).keydown(function (evt) {
       //not esc that was pressed
