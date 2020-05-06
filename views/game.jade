@@ -1,14 +1,15 @@
 extends layout
 
 block head
-  link(rel='stylesheet', href='/css/jquery.shiftenter.css')
-  link(rel='stylesheet', href='/css/toggles-full.css')
-  link(rel='stylesheet', type='text/css' href='/css/toggles-all.css')
-  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css')
   link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Orbitron', type='text/css')
-  link(rel='stylesheet', href='/css/jquery.scrollbar.css')
-  link(rel='stylesheet', href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
-  link(rel='stylesheet', href='/css/gunmedown/gun.css')
+  link(rel='stylesheet', href='/assets/jquery.shiftenter.css')
+  link(rel='stylesheet', href='/assets/toggles-full.css')
+  link(rel='stylesheet', href='/assets/toggles-all.css')
+  link(rel='stylesheet', href='/assets/bootstrap-switch.min.css')
+  link(rel='stylesheet', href='/assets/jquery.scrollbar.css')
+  link(rel='stylesheet', href='/assets/jquery-ui.min.css')
+  link(rel='stylesheet', href='/assets/game-view.css')
+  link(rel='stylesheet', href='/assets/main.css')
 
 block content
   .content
@@ -98,15 +99,14 @@ block content
                 form#random
                   button.btn.btn-default#randomBtn(type='button') Random
 block scripts
-  script(src='/js/lib/jquery-2.2.0.min.js')
-  script(src='/js/lib/bootstrap.min.js')
-  script(src='/js/main.js')
-  script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.js')
-  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
-  script(src='https://cdn.socket.io/socket.io-1.2.0.js')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js')
-  script(src='/js/jquery.shiftenter.js')
-  script(src='/js/toggle.js')
-  script(src='/js/jquery.scrollbar.js')
-  script(src='/js/jquery.onoff.js')
-  script(src='/js/gunmedown/gun.js')
+  script(src='/assets/socket.io.slim.js')
+  script(src='/assets/jquery.min.js')
+  script(src='/assets/jquery.shiftenter.js')
+  script(src='/assets/toggles.min.js')
+  script(src='/assets/jquery-ui.min.js')
+  script(src='/assets/jquery.scrollbar.min.js')
+  script(src='/assets/jquery.onoff.min.js')
+  script(src='/assets/bootstrap.min.js')
+  script(src='/assets/bootstrap-switch.min.js')  
+  script(src='/assets/main.js')
+  script(src='/assets/game-client.js')

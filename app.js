@@ -18,7 +18,7 @@ var expressValidator = require('express-validator');
 /**
  * Controllers
  */
-var gunController = require('./controllers/gun');
+var viewController = require('./controllers/view');
 
 /**
  * Create Express server.
@@ -41,6 +41,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(expressValidator());
 
+//socket.io
+app.use('/assets', express.static(__dirname + '/node_modules/socket.io-client/dist'));
+//jquery
+app.use('/assets', express.static(__dirname + '/node_modules/jquery/dist/'));
+//jquery toggles
+app.use('/assets', express.static(__dirname + '/node_modules/jquery-toggles/'));
+app.use('/assets', express.static(__dirname + '/node_modules/jquery-toggles/css/'));
+app.use('/assets', express.static(__dirname + '/node_modules/jquery-toggles/css/themes/'));
+//jquery ui
+app.use('/assets', express.static(__dirname + '/node_modules/jquery-ui-dist/'));
+//jquery onoff
+app.use('/assets', express.static(__dirname + '/node_modules/jquery.onoff/dist/'));
+//jquery scrollbar
+app.use('/assets', express.static(__dirname + '/node_modules/jquery.scrollbar/'));
+//bootstrap
+app.use('/assets', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/assets', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+//bootstrap switch
+app.use('/assets', express.static(__dirname + '/node_modules/bootstrap-switch/dist/js'));
+app.use('/assets', express.static(__dirname + '/node_modules/bootstrap-switch/dist/css/bootstrap3'));
+
 // app.use(session({
 //   resave: true,
 //   saveUninitialized: true,
@@ -56,11 +77,19 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/', gunController.gun);
+app.get('/', viewController.view);
 /**
  * Error Handler.
  */
 app.use(errorHandler());
+
+
+/**
+ * Start Express server.
+ */
+// app.listen(app.get('port'), function() {
+//   console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
+// });
 
 
 
@@ -70,8 +99,8 @@ app.use(errorHandler());
 
 var allClients = [];
 var index = 0;
-var server  = require('http').createServer(app);
-var io      = require('socket.io').listen(server);
+var gameServer  = require('http').createServer(app);
+var io      = require('socket.io').listen(gameServer);
 
 //someone connected
 io.on('connection', function(socket){
@@ -143,15 +172,9 @@ io.on('connection', function(socket){
   });
 });
 
-
-server.listen(3000, function() {
-  console.log('Express server listening on port %d in %s mode', 3000, 'no');
+gameServer.listen(3000, function() {
+  console.log('Game server listening on port %d in %s mode', 3000, 'no');
 });
-/**
- * Start Express server.
- */
-// app.listen(app.get('port'), function() {
-//   console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
-// });
+
 
 module.exports = app;

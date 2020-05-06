@@ -284,7 +284,7 @@ $(function() {
       $('#openChat').click();
     }
   }
-  $('#m').shiftenter();
+  //$('#m').shiftenter();
   // $("#messages").mCustomScrollbar({
   //   setWidth: '300px',
   //   setHeight: '200px',
