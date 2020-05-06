@@ -1,0 +1,27 @@
+{
+  "name": "superbestgamemmo",
+  "version": "1.0.0",
+  "description": "HTML5 canvas multiplayer game with node backend and websocke",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "async": "^2.0.0-rc.4",
+    "body-parser": "^1.15.1",
+    "compression": "^1.6.1",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "express-validator": "^2.20.4",
+    "jade": "^1.11.0",
+    "morgan": "^1.7.0",
+    "multer": "^1.1.0",
+    "request": "^2.72.0",
+    "socket.io": "^2.3.0",
+    "validator": "^5.2.0"
+  },
+  "author": "Bango1999",
+  "license": "UNLICENSED"
+}

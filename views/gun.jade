@@ -1,0 +1,112 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/css/jquery.shiftenter.css')
+  link(rel='stylesheet', href='/css/toggles-full.css')
+  link(rel='stylesheet', type='text/css' href='/css/toggles-all.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css')
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Orbitron', type='text/css')
+  link(rel='stylesheet', href='/css/jquery.scrollbar.css')
+  link(rel='stylesheet', href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
+  link(rel='stylesheet', href='/css/gunmedown/gun.css')
+
+block content
+  .content
+    nav.chat-bar
+      .col-xs-10.col-sm-8.col-lg-6
+        a.menu-toggle#openChat(href='#')
+          i.fa.fa-comments
+          span Click to Play
+          i.fa.fa-angle-double-right
+      .col-xs-2.col-md-4.col-lg-6.center-block
+        button.play-game-btn.btn.btn-primary.text-center(type='button') Play
+    .menu-container
+      .container
+      nav.chat-bar
+        a.menu-toggle.white#closeChat(href='#')
+          i.fa.fa-gamepad
+          span Back to Game
+          i.fa.fa-angle-double-left
+      .main-menu
+        .center
+          .onoffswitch
+            input.onoffswitch-checkbox#myonoffswitch(type='checkbox')
+            label.onoffswitch-label(for='myonoffswitch')
+              span.onoffswitch-inner
+              span.onoffswitch-switch
+    .row
+      .col-sm-12.col-md-8.canvas-container
+        canvas#canvas(width='600', height='600') Sorry, this browser doesn't support the HTML5 canvas...
+      .col-sm-12.col-md-4
+        .panel-group#accordion(role='tablist', aria-multiselectable='false')
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a.accordion-toggle(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne') Side Chat
+            .panel-collapse.collapse.in#collapseOne
+              .panel-body
+                h4.chat-info Player Count: Loading...
+                ul.panel-chat
+                form.chat
+                  .msgBox
+                    textarea#m(autocomplete='off')
+                    button.btn.btn-success.chatBtn(type='button') Send
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a.accordion-toggle(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='true', aria-controls='collapseTwo') Players Online
+            .panel-collapse.collapse#collapseTwo
+              .panel-body
+                 ul.list-group.players
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a.accordion-toggle(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseThree', aria-expanded='true', aria-controls='collapseThree') Debug Form
+            .panel-collapse.collapse#collapseThree
+              .panel-body
+                form#update
+                  .form-group
+                    label(for='x') X
+                    input.form-control#x(type='number', name='x', min='0')
+                  .form-group
+                    label(for='y') Y
+                    input.form-control#y(type='number', name='y', min='0')
+                  .form-group
+                    label(for='az') Azimuth
+                    input.form-control#az(type='number', name='az', min='0')
+                  .form-group
+                    label(for='r') Red
+                    input.form-control#r(type='number', name='r', min='0', max='255')
+                  .form-group
+                    label(for='g') Green
+                    input.form-control#g(type='number', name='g', min='0', max='255')
+                  .form-group
+                    label(for='b') Blue
+                    input.form-control#b(type='number', name='b', min='0', max='255')
+                  .form-group
+                    label(for='h') Alpha
+                    input.form-control#h(type='number', name='h', step='0.1', min='0', max='1')
+                  br
+                  hr
+                  #red
+                  #green
+                  #blue
+                  #alpha
+                  .ui-widget-content.ui-corner-all#swatch
+                  hr
+                  button.btn.btn-primary(type='submit', name='updateBtn') Update
+                form#random
+                  button.btn.btn-default#randomBtn(type='button') Random
+block scripts
+  script(src='/js/lib/jquery-2.2.0.min.js')
+  script(src='/js/lib/bootstrap.min.js')
+  script(src='/js/main.js')
+  script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
+  script(src='https://cdn.socket.io/socket.io-1.2.0.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js')
+  script(src='/js/jquery.shiftenter.js')
+  script(src='/js/toggle.js')
+  script(src='/js/jquery.scrollbar.js')
+  script(src='/js/jquery.onoff.js')
+  script(src='/js/gunmedown/gun.js')

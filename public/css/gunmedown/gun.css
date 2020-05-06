@@ -1,0 +1,276 @@
+/* slider css */
+.onoffswitch {
+  position: relative; width: 300px;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  display: none;
+}
+.onoffswitch-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 2px solid #999999; border-radius: 0px;
+}
+.onoffswitch-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  display: block; float: left; width: 50%; height: 22px; padding: 0; line-height: 18px;
+  font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.onoffswitch-inner:before {
+  content: "Streaming...";
+  padding-left: 5px;
+  background-color: #146FCF; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+  content: "Idle.";
+  padding-right: 5px;
+  background-color: #CCCCCC; color: #333333;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block; width: 25px; margin: 0px;
+  background: #000000;
+  position: absolute; top: 0; bottom: 0;
+  right: 275px;
+  transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
+
+/* End Slider Css */
+
+.panel-chat,
+.players {
+  list-style-type:none;
+  padding:0;
+  margin-bottom: 0;
+  max-height: 50vh;
+  overflow-y:auto;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.panel-chat li {
+  list-style-type:none;
+  border-top: 1px solid #ccc;
+}
+.chat-info {
+  color: #cf0000;
+  font-size:1em;
+  text-shadow: 1px 1px 2px #555;
+  padding-bottom:5px;
+  font-weight:bold;
+  margin: 2px 0 2px 5px;
+}
+.chatBtn {
+  border-radius: 0 !important;
+  width:100%;
+  min-height:30px;
+}
+
+.msgBox {
+  background:rgba(255,255,255,0.3);
+}
+#messages {
+  height: auto;
+  overflow: auto;
+}
+#m {
+  width: 100%;
+  min-height: 30px;
+}
+.scrollbar-macosx {
+  margin-bottom: 0 !important;
+}
+.msgBox textarea {
+  width:80% !important;
+  height:40px;
+  display:inline-block !important;
+  float:left;
+}
+.msgBox button {
+  width:20%;
+  float:right;
+  height:40px;
+}
+.players {
+  background:yellow;
+  width:100%;
+  height:100%;
+}
+.playerDiv {
+  background:orange;
+}
+.player {
+  margin: 10px;
+}
+#canvas {
+  display:inline;
+  border: 2px solid red;
+  background:#111;
+  z-index:19;
+}
+
+.canvas-container {
+  text-align:center;
+}
+
+#messages li {
+  color:white;
+  text-shadow: 2px 2px 1px black;
+}
+#update label {
+  display: inline-block;
+  width: 50%;
+  float:left;
+}
+#update input {
+  display:inline-block;
+  width:50%;
+  float:right;
+}
+#update button {
+  display:block;
+  clear:both;
+  width: 100%;
+}
+#random button {
+  width: 100%;
+}
+.toggle-on {
+  text-indent: 10px !important;
+}
+
+/*
+* ShiftEnter
+*/
+div.shiftenter,
+div.shiftenterInactive {
+    position: absolute;
+    z-index: 1;
+
+    font-size: 0.8em;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+div.shiftenter {
+    display: inline-block;
+}
+div.shiftenterInactive {
+    display: none;
+}
+
+#update .form-group {
+  clear:both;
+}
+
+.play-game-btn {
+  font-size:0.5em;
+}
+
+.center {
+  display:inline-block;
+}
+#messages li {
+  text-align:left;
+}
+
+.panel-body {
+  padding:5px;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.hidden {
+  display:none;
+}
+
+.menu-toggle {
+  display: inline-block;
+  color:black;
+}
+.menu-toggle:hover {
+  text-decoration:none;
+  color:#666;
+}
+.white {
+  color:white;
+}
+.white.menu-toggle:hover {
+  color:#ddd;
+}
+
+.menu-container {
+  width: 0;
+  position: absolute;
+  background: #222;
+  border-radius:10px;
+  top: 60px;
+  left: -100%;
+  padding: 0 20px 20px 20px;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.menu-container.is-active {
+  width: 100%;
+  left: 0;
+}
+.chat-bar {
+  font-size: 2.5em;
+  min-height:50px;
+  margin-bottom: 10px;
+  width: 100%;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+.chat-bar.is-active {
+  background-color: #4d4d4d;
+}
+.menu-container.is-active {
+  z-index:20;
+}
+
+.main-menu {
+  text-align:center
+}
+
+.no-flow {
+  overflow:hidden;
+}
+
+footer {
+  z-index:-1;
+}
+
+/* Color Swatch Area */
+#red, #green, #blue, #alpha {
+  float: left;
+  clear: left;
+  width: 50%;
+  margin: 15px;
+}
+#swatch {
+  width: 40%;
+  height: 120px;
+  margin-top: 18px;
+  margin-left: 60%;
+  background-image: none;
+}
+#red .ui-slider-range { background: #ef2929; }
+#red .ui-slider-handle { border-color: #ef2929; }
+#green .ui-slider-range { background: #8ae234; }
+#green .ui-slider-handle { border-color: #8ae234; }
+#blue .ui-slider-range { background: #729fcf; }
+#blue .ui-slider-handle { border-color: #729fcf; }
