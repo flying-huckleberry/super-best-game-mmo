@@ -2,7 +2,6 @@ extends layout
 
 block head
   link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Orbitron', type='text/css')
-  link(rel='stylesheet', href='/assets/jquery.shiftenter.css')
   link(rel='stylesheet', href='/assets/toggles-full.css')
   link(rel='stylesheet', href='/assets/toggles-all.css')
   link(rel='stylesheet', href='/assets/bootstrap-switch.min.css')
@@ -101,12 +100,11 @@ block content
 block scripts
   script(src='/assets/jquery.min.js')
   script(src='/assets/jquery-ui.min.js')
-  script(src='/assets/jquery.shiftenter.js')
   script(src='/assets/toggles.min.js')
   script(src='/assets/jquery.scrollbar.min.js')
   // script(src='/assets/jquery.onoff.js')
   script(src='/assets/bootstrap.min.js')
   script(src='/assets/bootstrap-switch.min.js')  
   script(src='/assets/socket.io.slim.js')
-  script(src='/assets/game-client.js')
+  script(src='/assets/game-client.js?y')
   script(src='/assets/main.js')

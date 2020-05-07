@@ -1,12 +1,21 @@
-var me;
-var playersList = [];
-var pressedKeys = [];
-var gameSize = 600;
-var playerWidth = playerHeight = gameSize / 6;
+var State = {
+  'game': {
+    'players': [],
+    'shots': [],
+  },
+  'me': {
+    'id': null,
+    'pressedKeys': [],
+    'player': []
+  }
+
+};
+const GameSize = 600;
+const PlayerWidth = playerHeight = GameSize / 6;
 
 function getMyIndex() {
-  for (var i = 0; i < playersList.length; i++)
-    if (playersList[i].id == me)
+  for (var i = 0; i < State.game.players.length; i++)
+    if (State.game.players[i].id == State.me.id)
       return i;
 }
 
@@ -27,50 +36,50 @@ function refreshInputs(my) {
 function go(i,dir,modifier) {
   //movement operations
   if (dir == 'left')
-    playersList[i].x = playersList[i].x-modifier;
+    State.game.players[i].x = State.game.players[i].x-modifier;
   else if (dir == 'up')
-    playersList[i].y = playersList[i].y-modifier;
+    State.game.players[i].y = State.game.players[i].y-modifier;
   else if (dir == 'down')
-    playersList[i].y = playersList[i].y+modifier;
+    State.game.players[i].y = State.game.players[i].y+modifier;
   else if (dir == 'right')
-    playersList[i].x = playersList[i].x+modifier;
+    State.game.players[i].x = State.game.players[i].x+modifier;
   //boundary checks
-  if (playersList[i].x < 0)
-    playersList[i].x = 0;
-  else if (playersList[i].x > gameSize)
-    playersList[i].x = gameSize
-    if (playersList[i].y < 0)
-      playersList[i].y = 0;
-  else if (playersList[i].y > gameSize)
-    playersList[i].y = gameSize;
+  if (State.game.players[i].x < 0)
+    State.game.players[i].x = 0;
+  else if (State.game.players[i].x > GameSize)
+    State.game.players[i].x = GameSize
+    if (State.game.players[i].y < 0)
+      State.game.players[i].y = 0;
+  else if (State.game.players[i].y > GameSize)
+    State.game.players[i].y = GameSize;
 }
 
 function look(i,dir) {
-  // if (playersList[i].az >= ((dir+180)%360) && playersList[i].az < ((dir+360)%360)
-  //   playersList[i].az = ((playersList[i].az + 2) + 360) % 360;
-  // else if (playersList[i].az % 360 != dir)
-  //   playersList[i].az = ((playersList[i].az - 2) + 360) % 360;
+  // if (State.game.players[i].az >= ((dir+180)%360) && State.game.players[i].az < ((dir+360)%360)
+  //   State.game.players[i].az = ((State.game.players[i].az + 2) + 360) % 360;
+  // else if (State.game.players[i].az % 360 != dir)
+  //   State.game.players[i].az = ((State.game.players[i].az - 2) + 360) % 360;
 
   if (dir == 0) {
-    if (playersList[i].az >= 180 && playersList[i].az < 360)
-      playersList[i].az = ((playersList[i].az + 2) + 360) % 360;
-    else if (playersList[i].az % 360 != 0)
-      playersList[i].az = ((playersList[i].az - 2) + 360) % 360;
+    if (State.game.players[i].az >= 180 && State.game.players[i].az < 360)
+      State.game.players[i].az = ((State.game.players[i].az + 2) + 360) % 360;
+    else if (State.game.players[i].az % 360 != 0)
+      State.game.players[i].az = ((State.game.players[i].az - 2) + 360) % 360;
   } else if (dir == 90) {
-    if (playersList[i].az >= 270 || playersList[i].az < 90)
-      playersList[i].az = ((playersList[i].az + 2) + 360) % 360;
-    else if (playersList[i].az % 360 != 90)
-      playersList[i].az = ((playersList[i].az - 2) + 360) % 360;
+    if (State.game.players[i].az >= 270 || State.game.players[i].az < 90)
+      State.game.players[i].az = ((State.game.players[i].az + 2) + 360) % 360;
+    else if (State.game.players[i].az % 360 != 90)
+      State.game.players[i].az = ((State.game.players[i].az - 2) + 360) % 360;
   } else if (dir == 180) {
-    if (playersList[i].az >= 0 && playersList[i].az < 180)
-      playersList[i].az = ((playersList[i].az + 2) + 360) % 360;
-    else if (playersList[i].az % 360 != 180)
-      playersList[i].az = ((playersList[i].az - 2) + 360) % 360;
+    if (State.game.players[i].az >= 0 && State.game.players[i].az < 180)
+      State.game.players[i].az = ((State.game.players[i].az + 2) + 360) % 360;
+    else if (State.game.players[i].az % 360 != 180)
+      State.game.players[i].az = ((State.game.players[i].az - 2) + 360) % 360;
   } else if (dir == 270) {
-    if (playersList[i].az > 270 || playersList[i].az < 90)
-      playersList[i].az = ((playersList[i].az - 2) + 360) % 360;
-    else if (playersList[i].az % 360 != 270)
-      playersList[i].az = ((playersList[i].az + 2) + 360) % 360;
+    if (State.game.players[i].az > 270 || State.game.players[i].az < 90)
+      State.game.players[i].az = ((State.game.players[i].az - 2) + 360) % 360;
+    else if (State.game.players[i].az % 360 != 270)
+      State.game.players[i].az = ((State.game.players[i].az + 2) + 360) % 360;
   }
 }
 
@@ -100,7 +109,7 @@ function play() {
     //so log play keys
 
     //shift key speed
-    if(pressedKeys[16]) {
+    if(State.me.pressedKeys[16]) {
       //console.log('shift pressed');
       shift = 2;
     } else {
@@ -109,49 +118,49 @@ function play() {
     }
 
     //azimuth directional
-    if(pressedKeys[37]) {
+    if(State.me.pressedKeys[37]) {
       //console.log('left pressed');
       look(i,270);
       updateMe = true;
     }
-    if(pressedKeys[38]) {
+    if(State.me.pressedKeys[38]) {
       //console.log('up pressed');
       look(i,0);
       updateMe = true;
     }
-    if(pressedKeys[39]) {
+    if(State.me.pressedKeys[39]) {
       //console.log('right pressed');
       look(i,90);
       updateMe = true;
     }
-    if(pressedKeys[40]) {
+    if(State.me.pressedKeys[40]) {
       //console.log('down pressed');
       look(i,180);
       updateMe = true;
     }
 
     //movement directional
-    if (pressedKeys[87]) {
+    if (State.me.pressedKeys[87]) {
       //console.log('w pressed');
       go(i,'up', shift);
       updateMe = true;
     }
-    if (pressedKeys[65]) {
+    if (State.me.pressedKeys[65]) {
       //console.log('a pressed');
       go(i,'left', shift);
       updateMe = true;
     }
-    if (pressedKeys[83]) {
+    if (State.me.pressedKeys[83]) {
       //console.log('s pressed ');
       go(i,'down', shift);
       updateMe = true;
     }
-    if (pressedKeys[68]) {
+    if (State.me.pressedKeys[68]) {
       //console.log('d pressed');
       go(i,'right', shift);
       updateMe = true;
     }
-    if (pressedKeys[32]) {
+    if (State.me.pressedKeys[32]) {
       //shoot accepts i, which is this player's id
       shoot(i);
     }
@@ -159,14 +168,14 @@ function play() {
 
   if (updateMe) {
     var arr = toArr(
-      me,
-      playersList[i].x,
-      playersList[i].y,
-      playersList[i].az,
-      playersList[i].r,
-      playersList[i].g,
-      playersList[i].b,
-      playersList[i].h
+      State.me.id,
+      State.game.players[i].x,
+      State.game.players[i].y,
+      State.game.players[i].az,
+      State.game.players[i].r,
+      State.game.players[i].g,
+      State.game.players[i].b,
+      State.game.players[i].h
     );
     //send
     arr.forceUpdate = false;
@@ -200,16 +209,16 @@ function play() {
 
 
   ctx.save();
-  ctx.clearRect(0,0,gameSize,gameSize);
+  ctx.clearRect(0,0,GameSize,GameSize);
 
-  for (var i = 0; i < playersList.length; i++) {
+  for (var i = 0; i < State.game.players.length; i++) {
 
-    var player = playersList[i];
+    var player = State.game.players[i];
     //this sets the context back into the corner so we can work from that point again to display the next player
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = "rgba(250,250,250,1)" + player.h + ")";
 
-    drawRotatedRect(Math.abs(player.x), Math.abs(player.y), playerWidth, playerHeight, Math.abs(player.az));
+    drawRotatedRect(Math.abs(player.x), Math.abs(player.y), PlayerWidth, playerHeight, Math.abs(player.az));
     ctx.fillStyle ="rgb("
       + player.r
       + ","
@@ -295,7 +304,7 @@ $(function() {
   $(document.body).keydown(function (evt) {
       //not esc that was pressed
       if (evt.keyCode !== 27) {
-        pressedKeys[evt.keyCode] = true;
+        State.me.pressedKeys[evt.keyCode] = true;
       //handle esc presses differently
       } else {
         escPressed();
@@ -303,7 +312,7 @@ $(function() {
   });
   $(document.body).keyup(function (evt) {
     if (evt.keyCode !== 27) {
-      pressedKeys[evt.keyCode] = false;
+      State.me.pressedKeys[evt.keyCode] = false;
     }
   });
 
@@ -320,18 +329,22 @@ function toArr(id, x, y, az, r, g, b, h) {
 socket.on('connect', function () {
   console.log('socket.connect');
 });
-socket.on('you', function(id) {
+socket.on('you', function(player) {
   console.log('socket.you');
-  me = id;
-  console.log('me = ' + me);
+  State.me.id = player.id;
 });
 //if you receive your id
-socket.on('get bearings', function (players) {
-  playersList = players;
-  console.log('socket.bearings');
-  console.log('players list follows');
-  console.log(playersList);
-  $('.chat-info').first().text('Player Count: ' + playersList.length);
+socket.on('server update', function (state) {
+  //handle State.game.players
+  //console.log('socket.server update');
+  State.game = state;
+  State.game.players[State.me.id] = State.me.player;
+  //console.log('game state follows');
+  //console.log(State.game);
+
+  $('.chat-info').first().text('Player Count: ' + State.game.players.length);
+
+  //todo why is this here
   $('#myonoffswitch').on('change', function(e) {
     if($(this).is(":checked")) {
       play();
@@ -341,45 +354,47 @@ socket.on('get bearings', function (players) {
       $('body').removeClass('no-flow');
     }
   });
-  for (var i = 0; i < playersList.length; i++) {
+
+  for (var i = 0; i < State.game.players.length; i++) {
     $('.players')
       .append(
         $('<li></li>')
           .addClass('list-group-item')
-          .attr('data-id',playersList[i].id)
-          .text(playersList[i].id)
+          .attr('data-id',State.game.players[i].id)
+          .text(State.game.players[i].id)
       );
   }
+
 });
 
 //if server sends you notice of new player
 socket.on('new player', function (player) {
   console.log('socket.new player');
   console.log(player);
-  playersList.push(player);
-  $('.chat-info').first().text('Player Count: ' + playersList.length);
+  State.game.players.push(player);
+  $('.chat-info').first().text('Player Count: ' + State.game.players.length);
   $('.panel-chat').first().append($('<li />').css('font-style','italic').css('color','#5c5').css('text-align','center').text("Player " + player.id + " connected"));
   $('.panel-chat').first().scrollTop($('.panel-chat').first().prop('scrollHeight'));
   $('.players')
     .append(
       $('<li></li>')
         .addClass('list-group-item')
-        .attr('data-id',playersList[(playersList.length -1)].id)
-        .text(playersList[(playersList.length -1)].id)
+        .attr('data-id',State.game.players[(State.game.players.length -1)].id)
+        .text(State.game.players[(State.game.players.length -1)].id)
     );
   var myIndex = getMyIndex();
-  if (player.id === playersList[myIndex].id) {
-    $('#x').val(playersList[myIndex].x);
-    $('#y').val(playersList[myIndex].y);
-    $('#az').val(playersList[myIndex].az);
-    $('#r').val(playersList[myIndex].r);
-    $('#g').val(playersList[myIndex].g);
-    $('#b').val(playersList[myIndex].b);
-    $('#h').val(playersList[myIndex].h);
-    $('#red').slider('value', playersList[myIndex].r);
-    $('#green').slider('value', playersList[myIndex].g);
-    $('#blue').slider('value', playersList[myIndex].b);
-    $('#alpha').slider('value', playersList[myIndex].h*10);
+  if (player.id === State.game.players[myIndex].id) {
+    $('#x').val(State.game.players[myIndex].x);
+    $('#y').val(State.game.players[myIndex].y);
+    $('#az').val(State.game.players[myIndex].az);
+    $('#r').val(State.game.players[myIndex].r);
+    $('#g').val(State.game.players[myIndex].g);
+    $('#b').val(State.game.players[myIndex].b);
+    $('#h').val(State.game.players[myIndex].h);
+    $('#red').slider('value', State.game.players[myIndex].r);
+    $('#green').slider('value', State.game.players[myIndex].g);
+    $('#blue').slider('value', State.game.players[myIndex].b);
+    $('#alpha').slider('value', State.game.players[myIndex].h*10);
   }
 
 });
@@ -387,41 +402,41 @@ socket.on('new player', function (player) {
 //if server sends you notice of player disconnected
 socket.on('player disconnect', function (id) {
   console.log('socket.player disconnect');
-  for (var i = 0; i < playersList.length; i++) {
-    if (playersList[i].id == id) {
-      //remove this from playersList
-      playersList.splice(i, 1);
+  for (var i = 0; i < State.game.players.length; i++) {
+    if (State.game.players[i].id == id) {
+      //remove this from State.game.players
+      State.game.players.splice(i, 1);
       $('.players li')
         .filter('[data-id="' + id + '"]')
         .remove();
       break;
     }
   }
-  $('.chat-info').first().text('Player Count: ' + playersList.length);
+  $('.chat-info').first().text('Player Count: ' + State.game.players.length);
   $('.panel-chat').first().append($('<li />').css('font-style','italic').css('color','#55c').css('text-align','center').text("Player " + id + " disconnected"));
   $('.panel-chat').first().scrollTop($('.panel-chat').first().prop('scrollHeight'));
 });
 
 //if server sends you data to update player
 socket.on('update player', function (player) {
-  if (player.id == me && !player.forceUpdate) {
+  if (player.id == State.me.id && !player.forceUpdate) {
     //console.log('not updating, player is me!');
     return;
   }
-  //console.log('before update player playerslist=');
-  //console.log(playersList);
+  //console.log('before update player State.game.players=');
+  //console.log(State.game.players);
   console.log('socket.update player');
   //var arr = toArr(player.id, player.x, player.y, player.az, player.r, player.g, player.b, player.h);
-  for (var i = 0; i < playersList.length; i++) {
-    if (playersList[i].id == player.id) {
-      playersList[i].x = player.x;
-      playersList[i].y = player.y;
-      playersList[i].az = player.az;
-      playersList[i].r = player.r;
-      playersList[i].g = player.g;
-      playersList[i].b = player.b;
-      playersList[i].h = player.h;
-      console.log(playersList[i]);
+  for (var i = 0; i < State.game.players.length; i++) {
+    if (State.game.players[i].id == player.id) {
+      State.game.players[i].x = player.x;
+      State.game.players[i].y = player.y;
+      State.game.players[i].az = player.az;
+      State.game.players[i].r = player.r;
+      State.game.players[i].g = player.g;
+      State.game.players[i].b = player.b;
+      State.game.players[i].h = player.h;
+      console.log(State.game.players[i]);
       break;
     }
   }
@@ -458,7 +473,7 @@ $('#update').submit(function(e) {
   var appValues = $('#r').val().length > 0 && $('#g').val().length > 0 && $('#b').val().length > 0 && $('#h').val().length > 0;
   if (posValues && appValues) {
     //make values into arr, and into json to send
-    var arr = toArr(me, $('#x').val(), $('#y').val(), $('#az').val(), $('#r').val(), $('#g').val(), $('#b').val(), $('#h').val());
+    var arr = toArr(State.me.id, $('#x').val(), $('#y').val(), $('#az').val(), $('#r').val(), $('#g').val(), $('#b').val(), $('#h').val());
     //since we dont usually update ourselves on our own screen via server, we force update here
     arr.forceUpdate = true;
     //send
@@ -476,16 +491,16 @@ $('.chat').submit(function(e){
     var pR;
     var pG;
     var pB;
-    for (var i = 0; i < playersList.length; i++) {
-      if (playersList[i].id == me) {
-        pR = playersList[i].r;
-        pG = playersList[i].g;
-        pB = playersList[i].b;
+    for (var i = 0; i < State.game.players.length; i++) {
+      if (State.game.players[i].id == State.me.id) {
+        pR = State.game.players[i].r;
+        pG = State.game.players[i].g;
+        pB = State.game.players[i].b;
         break;
       }
     }
     var arr = {
-      id: me,
+      id: State.me.id,
       msg: $('#m').val(),
       r: pR,
       g: pG,
@@ -503,8 +518,8 @@ $('#random').submit(function(e) {
   if (az % 2 == 1) {
     az = (az + 1) % 360;
   }
-  var arr = toArr(
-      me,
+  var me = toArr(
+      State.me.id,
       Math.floor((Math.random() * 700) + 1).toString(),
       Math.floor((Math.random() * 700) + 1).toString(),
       az.toString(),
@@ -514,11 +529,13 @@ $('#random').submit(function(e) {
       (((Math.random() * 100) + 1)/100).toFixed(1).toString()
     );
     //since we dont usually update ourselves on our own screen via server, we force update here
-    arr.forceUpdate = true;
+    me.forceUpdate = true;
+    //add me to my own state
+    GameState.me.player = me;
     //send
-    socket.emit('update', arr);
+    socket.emit('update', me);
     //put my new position values in my input elements
-    refreshInputs(arr);
+    refreshInputs(me);
 });
 
 $('#randomBtn').click(function() {

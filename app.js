@@ -16,11 +16,6 @@ var path = require('path');
 var expressValidator = require('express-validator');
 
 /**
- * Controllers
- */
-var viewController = require('./controllers/view');
-
-/**
  * Create Express server.
  */
 var app = express();
@@ -75,9 +70,14 @@ app.use('/assets', express.static(__dirname + '/node_modules/bootstrap-switch/di
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
 /**
- * Primary app routes.
+ * URL Request Routing
  */
-app.get('/', viewController.view);
+app.get('/', function(req, res) {
+  res.render('game', {
+    title: 'Super Best Game MMO!'
+  });
+});
+
 /**
  * Error Handler.
  */
@@ -97,7 +97,13 @@ app.use(errorHandler());
  * Super Best Game Server
  */
 
-var allClients = [];
+var Clients = [];
+
+var GameState = {
+  'players': [],
+  'shots': [],
+};
+
 var index = 0;
 var gameServer  = require('http').createServer(app);
 var io      = require('socket.io').listen(gameServer);
@@ -105,7 +111,7 @@ var io      = require('socket.io').listen(gameServer);
 //someone connected
 io.on('connection', function(socket){
   console.log('someone connected');
-  var az = Math.floor((Math.random() * 360) + 1);
+  let az = Math.floor((Math.random() * 360) + 1);
   if (az % 2 == 1) {
     az = (az + 1) % 360;
   }
@@ -123,14 +129,9 @@ io.on('connection', function(socket){
   //i shall call him index
   socket.id = player.id;
   socket.player = player;
-  //make array of everyone before him, to send him
-  var players = [];
-  for (var i = 0; i < allClients.length; i++) {
-    players.push(allClients[i].player);
-  }
-  socket.emit('you', player.id);
-  socket.emit('get bearings', players);
-  allClients.push(socket);
+  Clients.push(socket);
+  GameState.players.push(player);
+  socket.emit('you', player);
   //everyone now has him
   io.emit('new player', socket.player);
 
@@ -141,36 +142,51 @@ io.on('connection', function(socket){
 
   //someone sent a chat message
   socket.on('chat message', function(arr){
-    io.emit('chat message', arr);
+    io.emit('chat message', arr);//i should probably sanitize this or something?
   });
 
   //someone disconnected
   socket.on('disconnect', function(){
-     console.log('someone disconnected');
-    var i = allClients.indexOf(socket);
-    io.emit('player disconnect', allClients[i].player.id);
-    allClients.splice(i, 1);
+    var i = Clients.indexOf(socket);
+    console.log(i+' disconnected');
+    io.emit('player disconnect', Clients[i].player.id);
+    Clients.splice(i, 1);
   });
 
   //someone updated themselves
-  socket.on('update', function(arr) {
-    for (var i = 0; i < allClients.length; i++) {
-      if (allClients[i].player.id == arr.id) {
-        allClients[i].player.x = arr.x;
-        allClients[i].player.y = arr.y;
-        allClients[i].player.az = arr.az;
-        allClients[i].player.r = arr.r;
-        allClients[i].player.g = arr.g;
-        allClients[i].player.b = arr.b;
-        allClients[i].player.h = arr.h;
-        var player = allClients[i].player;
-        player.forceUpdate = arr.forceUpdate ? true : false;
-        io.emit('update player', player);
-        break;
-      }
-    }
+  socket.on('update', function(player) {
+    //find the player in the master list of clients
+    var i = Clients.indexOf(socket);
+    //update the player to what this update sends us
+    GameState.players[i] = player;
+
+    //broadcast to all clients so they can update the player too
+    //io.emit('update player', player);
   });
-});
+
+  //someone shot their gun
+  socket.on('shot', function(player){
+
+    var i = Clients.indexOf(socket);
+    console.log(i+' shot their gun');
+    shots.push({
+      "player": player,
+      "time": new Date()
+    });
+    //io.emit('player shot', Clients[i].player.id);
+  });
+
+}); // end of player connection scope
+
+
+/**
+ *  Server Loop
+ *  Every few milliseconds, broadcast player data
+ */
+
+ setInterval(function() {
+   io.emit('server update', GameState);
+ }, 60);
 
 gameServer.listen(3000, function() {
   console.log('Game server listening on port %d in %s mode', 3000, 'no');
