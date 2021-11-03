@@ -27,7 +27,7 @@
     "multer": "^1.1.0",
     "request": "^2.72.0",
     "socket.io": "^2.3.0",
-    "validator": "^5.2.0"
+    "validator": "^13.7.0"
   },
   "author": "Bango1999",
   "license": "UNLICENSED"
