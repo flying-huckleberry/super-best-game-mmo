@@ -14,7 +14,7 @@
     "bootstrap-switch": "^3.3.2",
     "compression": "^1.6.1",
     "errorhandler": "^1.4.3",
-    "express": "^4.13.4",
+    "express": "^4.17.3",
     "express-session": "^1.13.0",
     "express-validator": "^2.20.4",
     "jade": "^1.11.0",
